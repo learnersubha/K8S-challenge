@@ -1,1 +1,40 @@
-This is task2
+Deploy and Manage Core Kubernetes Objects
+
+Write a YAML file to create a Namespace for the online_shop application:-
+
+kind: Namespace
+apiVersion: v1
+
+metadata:
+  name: nginx-ns  
+
+ Apply the YAML:- kubectl apply -f namespace.yml
+
+Deploy a Deployment:
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: nginx-ns  
+  labels:
+    app: nginx
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      name: nginx-pod
+      namespace: nginx-ns  
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+
+For Apply: - kubectl apply -f deployment.yml

@@ -1,1 +1,31 @@
-This is task 1
+Understand Kubernetes Architecture & Deploy a Sample Pod
+
+In kubernetes architecture there is a cluster, where we get master-node and worker-node. 
+
+CLUSTER:- A group of server work together as a single system.
+
+Maste node/control plane componemts:
+
+API SERVER:- Api server provides the interface to interact with the cluster. Api server validate requestes and process tihe request to the backend component
+ETCD:- It is the database of kubernetes. It store the information about cluster like part of cluster nodes, running pods and more.
+SCHEDULAR:- The mastermind of your containers, when you want to run a container and ask for it, schedular is decide on which node the container is running. And it also consider the resource availability.
+CONTROLLER MANAGER:- Who always monitor the cluster to match between cluster state and our desire state.
+
+Worker node components:
+
+KUBELET:- Ensuring that the every containers on node are healthy and working properly. It is a manager of node.
+SERVER PROXY:- It allows to connect between pod and external client and external client to pod.
+
+A SAMPLE POD:- 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  namespace: nginx-ns  
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 80

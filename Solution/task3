@@ -1,0 +1,44 @@
+Networking & Exposure – Create Services, Ingress, and Network Policies
+
+Create a Service:
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: nginx-svc
+  namespace: nginx-ns
+
+spec:
+  selector:
+    app: nginx
+  ports:
+  - protocol: TCP
+    port: 83
+    targetPort: 80  
+
+For apply: kubectl apply -f service.yml
+
+Configure an Ingress:
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: online-shop-ingress
+  namespace: online-shop  
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+
+  rules:
+  - http:
+      paths:
+      - path: /shop
+        pathType: Prefix
+        backend: 
+          service:
+            name: online-shop-service
+            port:
+              number: 5173
+
+For apply:- kubectl apply -f ingress.yml
